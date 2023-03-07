@@ -1,0 +1,35 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'AWS CloudFormation Sample Template SecurityGroupSample:'
+Parameters:
+  
+  SSHLocation:
+    Description: The IP address range that can be used to SSH to the EC2 instances
+    Type: String
+    MinLength: '9'
+    MaxLength: '18'
+    Default: 'cidrip'
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+
+Resources:
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH access via port 22
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 'FromPort1'
+        ToPort: 'ToPort1'
+        CidrIp:
+          Ref: SSHLocation  
+      - IpProtocol: tcp
+        FromPort: "FromPort2"
+        ToPort: "ToPort2"
+        CidrIp:
+          Ref: SSHLocation
+      - IpProtocol: tcp
+        FromPort: "FromPort3"
+        ToPort: "ToPort3"
+        CidrIp:
+          Ref: SSHLocation
